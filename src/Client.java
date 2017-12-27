@@ -122,6 +122,20 @@ public class Client extends JFrame {
 			}	
 		);
 	}
+	
+	// Closes both streams and also the socket connection between them
+	private void closeApp() {
+		showMessage("\n Closing the app down...");
+		allowedToType(false);
+		try {
+			outputStream.close();
+			inputStream.close();
+			connection.close();
+		}catch(IOException ioException) {
+			ioException.printStackTrace();
+		}
+		
+	}
 
 
 }
