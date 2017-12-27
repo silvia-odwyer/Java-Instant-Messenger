@@ -51,4 +51,25 @@ public class Client extends JFrame {
 		}
 	}
 	
+	// Creates a connection to the server and displays whether successful or not 
+	
+	private void connectToServer() throws IOException{
+		showMessage("Attempting connection... \n");
+		connection = new Socket(InetAddress.getByName(serverIP), 6789);
+		showMessage("Connected to:" + connection.getInetAddress().getHostName());
+	}
+	
+
+	public void showMessage() {
+		
+	}
+	
+	private void setUpStreams() {
+		
+	}
+	
+	
+	private void closeApp() {
+		
+	}
 }
