@@ -87,7 +87,7 @@ public class Server extends JFrame {
 			}catch(ClassNotFoundException classNotFoundException) {
 				showMessage("\n Message could not be sent ");
 			}
-		}while(!message.equals("CLIENT - END"));
+		}while(!message.equals("CLIENT: END"));
 	}
 	
 	// This closes all connections and streams after done chatting

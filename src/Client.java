@@ -13,7 +13,6 @@ public class Client extends JFrame {
 	private ObjectInputStream inputStream;
 	private Socket connection;
 	
-	// Constructor
 	public Client(String host) {
 		super("Client Messaging Window");
 		serverIP = host;
@@ -22,12 +21,12 @@ public class Client extends JFrame {
 		messageText.addActionListener(
 			new ActionListener() {
 				public void actionPerformed(ActionEvent event) {
-					sendMessage(event.getActionCommand());
+					sendMessageToServer(event.getActionCommand());
 					messageText.setText("");
 				}
 			}
 		);
-		add(userText, BorderLayout.NORTH);
+		add(messageText, BorderLayout.NORTH);
 		chatWindow = new JTextArea();
 		add(new JScrollPane(chatWindow), BorderLayout.CENTER);
 		setSize(300, 150);
@@ -55,21 +54,22 @@ public class Client extends JFrame {
 	
 	private void connectToServer() throws IOException{
 		showMessage("Attempting connection... \n");
+		
+		// !!!The Port Number below must be changed when this app runs on the server
 		connection = new Socket(InetAddress.getByName(serverIP), 6789);
 		showMessage("Connected to:" + connection.getInetAddress().getHostName());
 	}
 	
+	
+	// Sets up the streams so that all messages can be received and sent
+	private void setUpStreams() throws IOException{
+		outputStream = new ObjectOutputStream(connection.getOutputStream());
+		outputStream.flush();
+		
+		inputStream = new ObjectInputStream(connection.getInputStream());
+		showMessage("\n Streams are now set up! :D");
+		
+	}
+	
 
-	public void showMessage() {
-		
-	}
-	
-	private void setUpStreams() {
-		
-	}
-	
-	
-	private void closeApp() {
-		
-	}
 }
