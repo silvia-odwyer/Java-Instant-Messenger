@@ -89,6 +89,15 @@ public class Client extends JFrame {
 	}
 	
 	
-	
+	// Gives the user permission to type into the text box
+	private void allowedToType(final boolean tof) {
+		SwingUtilities.invokeLater(
+			new Runnable() {
+				public void run() {
+					messageText.setEditable(tof);
+					}
+				}	
+			);
+	}
 
 }
