@@ -99,5 +99,18 @@ public class Client extends JFrame {
 				}	
 			);
 	}
+	
+	// Sends the message to the server
+	private void sendMessageToServer(String message) {
+		try {
+			outputStream.writeObject("CLIENT: " + message);
+			outputStream.flush();
+			showMessage("\nCLIENT: " + message);
+			}catch(IOException ioException) {
+			chatWindow.append("\n Your message did not send :(");
+			
+		}
+	}
+	
 
 }
