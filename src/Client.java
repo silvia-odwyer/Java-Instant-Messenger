@@ -70,6 +70,25 @@ public class Client extends JFrame {
 		showMessage("\n Streams are now set up! :D");
 		
 	}
+
+	// The message currently in the input stream (or incoming message) can 
+	// be read and displayed to the user.
+	private void whileChatting() throws IOException{
+		allowedToType(true);
+		do {
+			try {
+				message = (String) inputStream.readObject();
+				showMessage("\n" + message);
+				
+			}catch(ClassNotFoundException classNotfoundException) {
+				showMessage("\n Sorry, but we can't figure out what you sent! You sent something a lil dodgy there! ");
+				
+			}
+			
+		}while(!message.equals("SERVER: END"));
+	}
+	
+	
 	
 
 }
