@@ -111,5 +111,17 @@ public class Client extends JFrame {
 			
 		}
 	}
+	
+	// The message sent by the user can be shown in the Messenger Window
+	private void showMessage(final String message) {
+		SwingUtilities.invokeLater(
+			new Runnable() {
+				public void run() {
+					chatWindow.append(message);
+				}
+			}	
+		);
+	}
+
 
 }
