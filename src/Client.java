@@ -17,6 +17,38 @@ public class Client extends JFrame {
 	public Client(String host) {
 		super("Client Messaging Window");
 		serverIP = host;
+		messageText = new JTextField();
+		messageText.setEditable(false);
+		messageText.addActionListener(
+			new ActionListener() {
+				public void actionPerformed(ActionEvent event) {
+					sendMessage(event.getActionCommand());
+					messageText.setText("");
+				}
+			}
+		);
+		add(userText, BorderLayout.NORTH);
+		chatWindow = new JTextArea();
+		add(new JScrollPane(chatWindow), BorderLayout.CENTER);
+		setSize(300, 150);
+		setVisible(true);
+	
 	}
-
+	
+	// Starts the client app, so that it can get running
+	public void startClientApp() {
+		try {
+			connectToServer();
+			setUpStreams();
+			whileChatting();
+			
+		}catch(EOFException eofExxception) {
+			showMessage("\n Client terminated the connection :(");
+		}catch(IOException ioException) {
+			ioException.printStackTrace();
+		}finally {
+			closeApp();
+		}
+	}
+	
 }

@@ -21,16 +21,14 @@ public class Server extends JFrame {
 		super("Java Instant Messenger :)");
 		messageText = new JTextField();
 		messageText.setEditable(false);
-		
+
 		messageText.addActionListener(
 				new ActionListener() {
 					public void actionPerformed(ActionEvent event) {
 						sendMessage(event.getActionCommand());
 						messageText.setText("");
-	
 					}
-				}
-					
+				}					
 			);
 			add(messageText, BorderLayout.NORTH);
 			chatWindow = new JTextArea();
@@ -59,12 +57,12 @@ public class Server extends JFrame {
 			ioException.printStackTrace();
 		}
 	}
+	
 	// Wait for connection, then display connection information
 	private void waitForConnection() throws IOException{
 		
 		showMessage("Waiting for someone to connect...\n");
 		connection = server.accept();
-		
 		showMessage("Now connected to " + connection.getInetAddress().getHostName());
 	}
 	
@@ -92,7 +90,6 @@ public class Server extends JFrame {
 		}while(!message.equals("CLIENT - END"));
 	}
 	
-	
 	// This closes all connections and streams after done chatting
 	private void closeApp() {
 		showMessage("\n Closing connections... \n");
@@ -102,8 +99,7 @@ public class Server extends JFrame {
 			inputStream.close();
 			connection.close();
 		}catch(IOException ioException) {
-			ioException.printStackTrace();
-			
+			ioException.printStackTrace();	
 		}
 	}
 	
@@ -127,11 +123,9 @@ public class Server extends JFrame {
 			showMessage("\n SERVER: " + message);
 		}catch(IOException ioException) {
 			chatWindow.append("\n ERROR: CANNOT SEND MESSAGE");
-			
 		}
 	}
 
-	
 	// Let the user type stuff into their box
 	private void allowedToType(final boolean tof) {
 		SwingUtilities.invokeLater(
@@ -142,5 +136,4 @@ public class Server extends JFrame {
 			}
 		);
 	}
-	
 }
