@@ -47,7 +47,8 @@ public class Server extends JFrame {
 					setUpStreams();
 					whileChatting();
 					
-				}catch(EOFException eofException) {
+				}
+				catch(EOFException eofException) {
 					showMessage("\n Server ended the connection");
 				}finally {
 					closeApp();
@@ -84,7 +85,8 @@ public class Server extends JFrame {
 				message = (String) inputStream.readObject();
 				showMessage("\n" + message);
 				
-			}catch(ClassNotFoundException classNotFoundException) {
+			}
+			catch(ClassNotFoundException classNotFoundException) {
 				showMessage("\n Message could not be sent ");
 			}
 		}while(!message.equals("CLIENT: END"));
@@ -112,7 +114,6 @@ public class Server extends JFrame {
 				}
 			}
 		);
-		
 	}
 	
 	// Send a message to client 

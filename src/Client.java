@@ -106,7 +106,7 @@ public class Client extends JFrame {
 			outputStream.writeObject("CLIENT: " + message);
 			outputStream.flush();
 			showMessage("\nCLIENT: " + message);
-			}catch(IOException ioException) {
+		}catch(IOException ioException) {
 			chatWindow.append("\n Your message did not send :(");
 			
 		}
