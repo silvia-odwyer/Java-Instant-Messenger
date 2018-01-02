@@ -24,6 +24,13 @@
 <?import javafx.scene.control.Slider?>
 <BorderPane fx:controller="application.Controller"
 		  xmlns:fx="http://javafx.com/fxml">
+		 <right>
+		 	<VBox>
+			 	<Label text="Enter your username below"/>
+			 	<TextField fx:id="userNameField" />
+			 	<Button fx:id="connectButton" text="CONNECT" onAction="#onConnectButtonClicked"/>
+		 	</VBox>
+		 </right>
 		 
 		 <bottom>
 		 	<HBox>

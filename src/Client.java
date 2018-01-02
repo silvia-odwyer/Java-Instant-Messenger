@@ -41,7 +41,7 @@ public class Client extends JFrame {
 			setUpStreams();
 			whileChatting();
 			
-		}catch(EOFException eofExxception) {
+		}catch(EOFException eofException) {
 			showMessage("\n Client terminated the connection :(");
 		}catch(IOException ioException) {
 			ioException.printStackTrace();
