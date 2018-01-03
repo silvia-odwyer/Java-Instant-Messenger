@@ -6,13 +6,15 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Enumeration;
 import java.util.Vector;
 
 public class ChatHandler extends Thread {
 	protected ObjectInputStream inputStream;
 	protected ObjectOutputStream outputStream;
 	protected Socket newClient;
-	protected static Vector handlers = new Vector();
+	private String message = "";
+	protected static Vector allHandlers = new Vector();
 	
 	public ChatHandler(Socket newClient) throws IOException {
 		this.newClient = newClient;
@@ -29,14 +31,18 @@ public class ChatHandler extends Thread {
 
 	public void run() {
 		try {
-			handlers.addElement (this);
+			allHandlers.addElement (this);
 			while (true) {
-				String message = inputStream.readUTF();
+				try {
+					message = (String) inputStream.readObject();
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
 				broadcast(message);
-			} catch(IOException ioException) {
+			}} catch(IOException ioException) {
 				ioException.printStackTrace();
 			} finally {
-				handlers.removeElement(this);
+				allHandlers.removeElement(this);
 				
 				try {
 					newClient.close();
@@ -57,8 +63,24 @@ public class ChatHandler extends Thread {
 		newClient.close();
 	}
 	
-	public void broadcast() {
+	public void broadcast(String message) {
+		synchronized (allHandlers) {
+			Enumeration<E> newEnumeration = allHandlers.elements();
+			
+			while (newEnumeration.hasMoreElements()) {
+				ChatHandler c = (ChatHandler) newEnumeration.nextElement();
+				try {
+					synchronized(c.outputStream) {
+						c.outputStream.writeObject(message);
+					}
+					c.outputStream.flush();
+				} catch (IOException ioException) {
+					c.stop();
+				}
+			}
+		}
 		
 	}
 		
-}
+	}
+		
