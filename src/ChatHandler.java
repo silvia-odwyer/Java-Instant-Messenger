@@ -12,19 +12,19 @@ import java.util.Vector;
 public class ChatHandler extends Thread {
 	protected ObjectInputStream inputStream;
 	protected ObjectOutputStream outputStream;
-	protected Socket newClient;
+	protected Socket newClientSocket;
 	private String message = "";
 	protected static Vector allHandlers = new Vector();
 	
-	public ChatHandler(Socket newClient) throws IOException {
-		this.newClient = newClient;
+	public ChatHandler(Socket newClientSocker) throws IOException {
+		this.newClientSocket = newClientSocket;
 		setUpStreams();
 		run();
 		
 	}
 	public void setUpStreams() throws IOException {
-		inputStream = new ObjectInputStream(newClient.getInputStream());
-		outputStream = new ObjectOutputStream(new BufferedOutputStream (newClient.getOutputStream()));
+		inputStream = new ObjectInputStream(newClientSocket.getInputStream());
+		outputStream = new ObjectOutputStream(new BufferedOutputStream (newClientSocket.getOutputStream()));
 		outputStream.flush();
 	}
 	
@@ -45,7 +45,7 @@ public class ChatHandler extends Thread {
 				allHandlers.removeElement(this);
 				
 				try {
-					newClient.close();
+					newClientSocket.close();
 				} catch (IOException ioException) {
 					ioException.printStackTrace();
 				}
@@ -60,12 +60,12 @@ public class ChatHandler extends Thread {
 	public void close() throws IOException {
 		inputStream.close();
 		outputStream.close();
-		newClient.close();
+		newClientSocket.close();
 	}
 	
-	public void broadcast(String message) {
+	public void broadcast(String message) throws IOException {
 		synchronized (allHandlers) {
-			Enumeration<E> newEnumeration = allHandlers.elements();
+			Enumeration newEnumeration = allHandlers.elements();
 			
 			while (newEnumeration.hasMoreElements()) {
 				ChatHandler c = (ChatHandler) newEnumeration.nextElement();
@@ -75,7 +75,7 @@ public class ChatHandler extends Thread {
 					}
 					c.outputStream.flush();
 				} catch (IOException ioException) {
-					c.stop();
+					c.close();
 				}
 			}
 		}
