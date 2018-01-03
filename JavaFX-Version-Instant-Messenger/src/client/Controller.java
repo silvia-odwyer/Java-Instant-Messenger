@@ -1,4 +1,4 @@
-package application;
+package client;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -59,6 +59,26 @@ public class Controller {
 			}
 			
 		}
+	}
+	
+	@FXML
+	private void allowedToType(final boolean  tof) {
+		Runnable task = new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+						messageTextField.setEditable(tof);
+
+						}
+					});
+				} catch(InterruptedException event) {
+					//we don't care about this
+				}
+			}
+		};
 	}
 	
 	}

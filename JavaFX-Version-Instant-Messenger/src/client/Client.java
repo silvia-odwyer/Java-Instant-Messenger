@@ -1,4 +1,4 @@
-package application;
+package client;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -6,6 +6,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+
+import javax.swing.SwingUtilities;
 
 public class Client {
 	private Socket connection;
@@ -57,14 +59,41 @@ public class Client {
 	}
 	
 	public void whileChatting() {
+		System.out.println("Executing the start of the whileChatting method . . .");
+		//allowedToType(true);
+		/*do {
+			try {
+				//message = (String) inputStream.readObject();
+				//showMessage("\n" + message);
+				
+			}catch(ClassNotFoundException classNotfoundException) {
+				//showMessage("\n Sorry, but we can't figure out what you sent! You sent something a lil dodgy there! ");
+				
+			}
+			
+		}while(!message.equals("SERVER: END"));*/
+		
+		System.out.println("Reached the end of the whileChatting method . . .");
 		
 	}
 	
 	public void showMessage() {
 		
+		
+	}
+	
+	private void allowedToType(final boolean  tof) {
+		SwingUtilities.invokeLater(
+				new Runnable() {
+					public void run() {
+						messageText.setEditable(tof);
+						}
+					}	
+				);
 	}
 	
 	public void closeApp() {
+		System.out.println("Closing Client-side app now . . .");
 		
 	}
 
