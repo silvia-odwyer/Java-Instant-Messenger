@@ -90,7 +90,18 @@ public class Client {
 	
 	public void closeApp() {
 		System.out.println("CLIENT: Closing Client-side app now . . .");
-		
+		try {
+			inputStream.close();
+		} catch (IOException e) {
+			System.out.println("Couldn't close the input stream . . .");
+			e.printStackTrace();
+		}
+		try {
+			outputStream.close();
+		} catch (IOException e) {
+			System.out.println("Couldn't close the output stream . . .");
+			e.printStackTrace();
+		}
 	}
 
 
