@@ -22,7 +22,7 @@
 <?import javafx.collections.*?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Slider?>
-<BorderPane fx:controller="application.Controller"
+<BorderPane fx:controller="client.Controller"
 		  xmlns:fx="http://javafx.com/fxml">
 		 <right>
 		 	<VBox>

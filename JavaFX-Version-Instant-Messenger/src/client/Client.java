@@ -9,11 +9,14 @@ import java.net.Socket;
 
 import javax.swing.SwingUtilities;
 
+import javafx.application.Platform;
+
 public class Client {
 	private Socket connection;
 	private String serverIP;
 	private ObjectOutputStream outputStream;
 	private ObjectInputStream inputStream;
+	
 	
 	public Client(String host) {
 		serverIP = host;	
@@ -21,13 +24,13 @@ public class Client {
 	}
 	public void startApp() throws IOException {
 		try {
-			System.out.println("Starting the application now . . .");
+			System.out.println("CLIENT: Starting the application now . . .");
 			connectToServer();
 			setUpStreams();
 			whileChatting();
 			
 		}catch(EOFException eofException) {
-			System.out.println("The client terminated the connection . . . :(");
+			System.out.println("CLIENT: The client terminated the connection . . . :(");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}finally {
@@ -37,11 +40,11 @@ public class Client {
 	}
 	
 	public void testMethod() {
-		System.out.println("The Client class is fully functioning and working :)");
+		System.out.println("CLIENT: The Client class is fully functioning and working :)");
 	}
 	
 	public void connectToServer() throws IOException {
-		System.out.println("The connectToServer method is working :)");
+		System.out.println("CLIENT: The connectToServer method is working :)");
 		// NEED TO UNCOMMENT OUT THE TWO LINES
 		// !!!The Port Number below must be changed when this app runs on the server
 //		connection = new Socket(InetAddress.getByName("127.0.0.1"), 6789);
@@ -50,16 +53,17 @@ public class Client {
 	}
 	
 	private void setUpStreams() throws IOException{
-		outputStream = new ObjectOutputStream(connection.getOutputStream());
-		outputStream.flush();
-		
-		inputStream = new ObjectInputStream(connection.getInputStream());
-		System.out.println("\n Streams are now set up! :D");
+		System.out.println("CLIENT: Attempting to set up streams...");
+//		outputStream = new ObjectOutputStream(connection.getOutputStream());
+//		outputStream.flush();
+//		
+//		inputStream = new ObjectInputStream(connection.getInputStream());
+		System.out.println("\n CLIENT: Streams are now set up! :D");
 		
 	}
 	
 	public void whileChatting() {
-		System.out.println("Executing the start of the whileChatting method . . .");
+		System.out.println("CLIENT: Executing the start of the whileChatting method . . .");
 		//allowedToType(true);
 		/*do {
 			try {
@@ -73,7 +77,7 @@ public class Client {
 			
 		}while(!message.equals("SERVER: END"));*/
 		
-		System.out.println("Reached the end of the whileChatting method . . .");
+		System.out.println("CLIENT: Reached the end of the whileChatting method . . .");
 		
 	}
 	
@@ -82,18 +86,10 @@ public class Client {
 		
 	}
 	
-	private void allowedToType(final boolean  tof) {
-		SwingUtilities.invokeLater(
-				new Runnable() {
-					public void run() {
-						messageText.setEditable(tof);
-						}
-					}	
-				);
-	}
+	
 	
 	public void closeApp() {
-		System.out.println("Closing Client-side app now . . .");
+		System.out.println("CLIENT: Closing Client-side app now . . .");
 		
 	}
 

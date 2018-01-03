@@ -49,8 +49,18 @@ public class Controller {
 			userName = userNameField.getText();
 			System.out.println("Connected as: " + userName);
 			Client newClient;
+			Server newServer;
 			newClient = new Client("127.0.0.1");
 			newClient.testMethod();
+			newServer = new Server("127.0.0.1");
+			try {
+				newServer.startServer();
+			} catch (EOFException e1) {
+				System.out.println("Client terminated the connection :(");
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 			try {
 				newClient.startApp();
 			} catch (IOException e) {
@@ -62,23 +72,20 @@ public class Controller {
 	}
 	
 	@FXML
-	private void allowedToType(final boolean  tof) {
+	private void allowedToType(final boolean tof) throws InterruptedException{
 		Runnable task = new Runnable() {
 			@Override
 			public void run() {
-				try {
-					Platform.runLater(new Runnable() {
-						@Override
-						public void run() {
-						messageTextField.setEditable(tof);
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+					messageTextField.setEditable(tof);
 
-						}
-					});
-				} catch(InterruptedException event) {
-					//we don't care about this
-				}
+					}
+				});
+				
 			}
 		};
 	}
 	
-	}
+}
