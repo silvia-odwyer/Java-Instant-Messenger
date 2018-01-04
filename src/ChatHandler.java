@@ -18,14 +18,17 @@ public class ChatHandler extends Thread {
 	
 	public ChatHandler(Socket newClientSocker) throws IOException {
 		this.newClientSocket = newClientSocket;
+		System.out.println("CLIENT: Created a new client socket connection");
 		setUpStreams();
 		run();
 		
 	}
 	public void setUpStreams() throws IOException {
+		System.out.println("CLIENT: Attempting to set up streams...")
 		inputStream = new ObjectInputStream(newClientSocket.getInputStream());
 		outputStream = new ObjectOutputStream(new BufferedOutputStream (newClientSocket.getOutputStream()));
 		outputStream.flush();
+		System.out.println("CLIENT: Set up streams successfully! :D");
 	}
 	
 
@@ -43,6 +46,12 @@ public class ChatHandler extends Thread {
 				ioException.printStackTrace();
 			} finally {
 				allHandlers.removeElement(this);
+				try {
+					close();
+				} catch (IOException e) {
+					System.out.println("CLIENT: Could not close successfully...");
+					e.printStackTrace();
+				}
 				
 				try {
 					newClientSocket.close();
@@ -58,6 +67,7 @@ public class ChatHandler extends Thread {
 	}
 	
 	public void close() throws IOException {
+		System.out.println("Closing the app down...");
 		inputStream.close();
 		outputStream.close();
 		newClientSocket.close();
@@ -71,6 +81,7 @@ public class ChatHandler extends Thread {
 				ChatHandler c = (ChatHandler) newEnumeration.nextElement();
 				try {
 					synchronized(c.outputStream) {
+						System.out.println("CLIENT: Writing message to output stream");
 						c.outputStream.writeObject(message);
 					}
 					c.outputStream.flush();
