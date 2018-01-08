@@ -13,9 +13,9 @@ public class Client extends JFrame {
 	private ObjectInputStream inputStream;
 	private Socket connection;
 	
-	public Client(String host) {
+	public Client(String serverIP1) {
 		super("Client Messaging Window");
-		serverIP = host;
+		serverIP = serverIP1;
 		messageText = new JTextField();
 		messageText.setEditable(false);
 		messageText.addActionListener(
@@ -41,7 +41,7 @@ public class Client extends JFrame {
 			setUpStreams();
 			whileChatting();
 			
-		}catch(EOFException eofException) {
+		}catch(EOFException eofExxception) {
 			showMessage("\n Client terminated the connection :(");
 		}catch(IOException ioException) {
 			ioException.printStackTrace();

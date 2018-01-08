@@ -16,7 +16,7 @@ public class ChatHandler extends Thread {
 	private String message = "";
 	protected static Vector allHandlers = new Vector();
 	
-	public ChatHandler(Socket newClientSocker) throws IOException {
+	public ChatHandler(Socket newClientSocket) throws IOException {
 		this.newClientSocket = newClientSocket;
 		System.out.println("CLIENT: Created a new client socket connection");
 		setUpStreams();
@@ -24,7 +24,7 @@ public class ChatHandler extends Thread {
 		
 	}
 	public void setUpStreams() throws IOException {
-		System.out.println("CLIENT: Attempting to set up streams...")
+		System.out.println("CLIENT: Attempting to set up streams...");
 		inputStream = new ObjectInputStream(newClientSocket.getInputStream());
 		outputStream = new ObjectOutputStream(new BufferedOutputStream (newClientSocket.getOutputStream()));
 		outputStream.flush();

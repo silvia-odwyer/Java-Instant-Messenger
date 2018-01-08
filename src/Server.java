@@ -43,10 +43,7 @@ public class Server extends JFrame {
 			server = new ServerSocket(6789, 100);
 			while(true) {
 				try {
-					Socket newClient = server.accept();
-					System.out.println("Accepted from Client: " + newClient.getInetAddress());
-					ChatHandler chatHandler = new ChatHandler(newClient);
-					chatHandler.start();
+					waitForConnection();
 					setUpStreams();
 					whileChatting();
 					
@@ -79,9 +76,6 @@ public class Server extends JFrame {
 	}
 	
 	// Called so that the conversation can take place
-	// This method monitors if any messages are coming in through the input stream from the 
-	// server (or other clients) and then appends them onto the chat window so that they can be read
-	// by the user.
 	private void whileChatting() throws IOException{
 		String message = "You are now connected!";
 		sendMessage(message);
@@ -95,11 +89,10 @@ public class Server extends JFrame {
 			catch(ClassNotFoundException classNotFoundException) {
 				showMessage("\n Message could not be sent ");
 			}
-			// For as long as the client doesn't type "END", the socket connection will remain open.
-		}while(!message.equals("CLIENT: END")); 
+		}while(!message.equals("CLIENT: END"));
 	}
 	
-	// This closes all connections and streams once the client wishes to terminate the conversation
+	// This closes all connections and streams after done chatting
 	private void closeApp() {
 		showMessage("\n Closing connections... \n");
 		allowedToType(false);
