@@ -31,9 +31,13 @@
 			 	<Button fx:id="connectButton" text="CONNECT" onAction="#onConnectButtonClicked"/>
 		 	</VBox>
 		 </right>
+		 <center>
+		 	<Label fx:id="consoleText" text="Welcome to Java Instant Messenger!" />
+		 </center>
 		 
 		 <bottom>
 		 	<HBox>
+		 		<Label text=">>>>>>>>>>>>>>" />
 		 		<TextField fx:id="messageTextField" BorderPane.alignment="center"/>
 		 		<Button fx:id="sendButton" text="SEND" onAction="#onButtonClicked"/>
 		 	</HBox>
