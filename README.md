@@ -1,6 +1,8 @@
 # Java-Instant-Messenger
 A WIP Instant Messenger implemented using Java Spring, the Java Message Service, and ActiveMQ 
 
+Java Spring Instant Messenger (name yet to be decided) is an active model topic-subscription instant messenger, which is implemented through the Java Spring framework, the Java Message Service, as well as the ActiveMQ message broker service. Spring allows for the abstraction of messaging-based systems, and it also doesn't need explicit connections or input streams to be set up since the JMS as well as the Spring Framework can work with one another, and the Spring FRamework also abstractifies a lot of the backend.
+
 This instant messenger is currently in development, and requires further functionality to be integrated in order for it to be
 available on a web browser. 
 
