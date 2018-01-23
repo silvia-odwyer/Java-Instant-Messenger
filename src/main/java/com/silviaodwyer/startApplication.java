@@ -19,6 +19,8 @@ import org.springframework.jms.support.converter.MessageType;
 @EnableJms
 public class startApplication {
 	
+	// Creates a message container, which can then wait and listen for messages accordingly.
+	// The DefaultJmsListenerContainerFactory allows for efficcient asynchronous messaging.
 	@Bean
 	public JmsListenerContainerFactory<?> myFactory(ConnectionFactory connectionFactory,
 													DefaultJmsListenerContainerFactoryConfigurer configurer) {
@@ -37,6 +39,7 @@ public class startApplication {
 		return jsonConverter;
 	}
 	
+	// Creates the Application Context, and sends the message to its intended destination.
 	public static void main(String[] args) {
 		// The following line will launch the application
 		ConfigurableApplicationContext context = SpringApplication.run(startApplication.class, args);
