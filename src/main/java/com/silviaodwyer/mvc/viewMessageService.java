@@ -7,11 +7,11 @@ import java.util.List;
 public class viewMessageService implements GenericViewMessageService {
 	public List<String> getMessage(String name){
 		List<String> myMessage = new ArrayList<String>();
-		
+		// Will print out the message as received from the JMS Queue in due time
 		// Add data to the list
 		myMessage.add("Hello! ");
 		myMessage.add(name);
-		myMessage.add(", welcome to the Java Spring course :-)");
+		myMessage.add("you have received a message");
 		
 		return myMessage;
 	}
